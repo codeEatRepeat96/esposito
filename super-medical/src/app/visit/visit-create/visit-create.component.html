@@ -1,0 +1,40 @@
+<form [formGroup]="visitForm" class="form">
+  <mat-form-field class="form-field">
+    <input matInput type="date" placeholder="Date" formControlName="date" required>
+    <mat-error *ngIf="visitForm.controls['date'].invalid">Date is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <input matInput type="time" placeholder="Time" formControlName="time" required>
+    <mat-error *ngIf="visitForm.controls['time'].invalid">Time is required</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="form-field">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type" required>
+      <mat-option *ngFor="let type of visitTypes" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="visitForm.controls['type'].invalid">Type is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Reason</mat-label>
+    <mat-select formControlName="reason" required>
+      <mat-option *ngFor="let reason of visitReasons" [value]="reason">{{ reason }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="visitForm.controls['reason'].invalid">Reason is required</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="form-field">
+    <mat-label>Family History</mat-label>
+    <textarea matInput formControlName="familyHistory" placeholder="Family History"></textarea>
+  </mat-form-field>
+
+  <mat-card-actions>
+    <button mat-button color="warn" (click)="onCancelClick()">Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="visitForm.invalid"
+      (click)="onCreateClick()">{{buttonText}}</button>
+  </mat-card-actions>
+</form>
+
+<app-loader *ngIf="isLoading"></app-loader>

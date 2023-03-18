@@ -1,0 +1,25 @@
+<div class="container">
+    <h1 class="mat-h1">Patient: {{selectedPatient?.name}} {{selectedPatient?.surname}} SSN: {{selectedPatient?.ssn}}
+    </h1>
+    <button mat-raised-button color="primary" (click)="createNewVisit()">Create New Visit</button>
+    <mat-list style="overflow-y: scroll; height: 150px;">
+        <mat-list-item *ngFor="let visit of patientVisits">
+            <p matLine>
+                <button mat-icon-button (click)="updateVisit(visit)">
+                    <mat-icon fontIcon="update">
+
+                    </mat-icon>
+                </button>
+
+                <span>Date: {{ visit.date | date }} </span>
+                <span>{{ visit.time }} </span>
+                <span>Type: {{ visit.type }} </span>
+                <span>Reason: {{ visit.reason }} </span>
+                <span>Family History: {{ visit.familyHistory? visit.familyHistory: 'no history' }} </span>
+            </p>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<app-visit-create (cancelClick)="showFormToCreateVisit = false" *ngIf="showFormToCreateVisit"
+    [selectedPatientSsn]="selectedPatient?.ssn" [visitToUpdate]="visitToUpdate"></app-visit-create>
