@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+
+  frontend:
+    build: ./super-medical
+    ports:
+      - "80:80"
+
+  patient-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: patient
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./cgm-test/sql/patient.sql:/docker-entrypoint-initdb.d/patient.sql
+    ports:
+      - "3306:3306"
+
+  visit-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: visit
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./cgm-test/sql/visit.sql:/docker-entrypoint-initdb.d/visit.sql
+    ports:
+      - "3307:3306"
